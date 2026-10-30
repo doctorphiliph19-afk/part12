@@ -1,0 +1,41 @@
+Exercise 4 - Ubuntu 102
+
+The original Exercise 3 Ubuntu container was stopped during Docker Desktop recovery. I started it again and ran these commands from PowerShell.
+
+PS C:\Users\Student\Desktop\part12> docker start part12-exercise3-ubuntu
+part12-exercise3-ubuntu
+
+PS C:\Users\Student\Desktop\part12> docker exec -u 0 part12-exercise3-ubuntu sh -c 'whoami; apt update'
+root
+Hit:1 https://deb.nodesource.com/node_24.x nodistro InRelease
+Hit:2 http://security.ubuntu.com/ubuntu resolute-security InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu resolute InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu resolute-updates InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu resolute-backports InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+All packages are up to date.
+
+PS C:\Users\Student\Desktop\part12> docker exec -u 0 -e DEBIAN_FRONTEND=noninteractive part12-exercise3-ubuntu apt-get install -y curl
+0 upgraded, 30 newly installed, 0 to remove and 0 not upgraded.
+Setting up curl (8.18.0-1ubuntu2.8) ...
+
+PS C:\Users\Student\Desktop\part12> docker exec -u 0 part12-exercise3-ubuntu bash -c 'curl -sL https://deb.nodesource.com/setup_24.x | bash'
+2026-10-30 13:26:02 - Repository configured successfully.
+2026-10-30 13:26:02 - To install Node.js, run: apt install nodejs -y
+
+PS C:\Users\Student\Desktop\part12> docker exec -u 0 -e DEBIAN_FRONTEND=noninteractive part12-exercise3-ubuntu apt-get install -y nodejs
+The following NEW packages will be installed:
+  libexpat1 libpython3-stdlib libpython3.14-minimal libpython3.14-stdlib
+  media-types netbase nodejs python3 python3-minimal python3.14
+  python3.14-minimal tzdata
+0 upgraded, 12 newly installed, 0 to remove and 0 not upgraded.
+Fetched 46.6 MB in 15s (3092 kB/s).
+Setting up nodejs (24.22.2-1nodesource1) ...
+
+PS C:\Users\Student\Desktop\part12> docker exec part12-exercise3-ubuntu node --version
+v24.22.2
+
+PS C:\Users\Student\Desktop\part12> docker exec part12-exercise3-ubuntu node /usr/src/app/index.js
+Hello World
