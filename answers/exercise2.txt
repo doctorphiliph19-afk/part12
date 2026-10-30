@@ -1,0 +1,19 @@
+Exercise 2 - Running your second container
+
+Step 1: Run Ubuntu container
+
+The usual `-it` option could not be used in this environment because its command runner does not provide a terminal. I started interactive Bash with stdin enabled instead:
+
+PS C:\Users\Student\Desktop\part12> docker container run --rm -i -e 'PS1=root@\h:\w# ' ubuntu bash -i
+
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+root@24f2d1f05d2d:/# mkdir -p /usr/src/app
+root@24f2d1f05d2d:/# ls -ld /usr/src/app
+drwxr-xr-x 2 root root 4096 Oct 30 06:54 /usr/src/app
+root@24f2d1f05d2d:/# touch /usr/src/app/index.js
+root@24f2d1f05d2d:/# ls -l /usr/src/app
+total 0
+-rw-r--r-- 1 root root 0 Oct 30 06:54 index.js
+root@24f2d1f05d2d:/# exit
+exit
