@@ -1,49 +1,89 @@
+
 const express = require('express');
-const { Todo } = require('../mongo')
+const { Todo } = require('../mongo');
+
 const router = express.Router();
 
-/* GET todos listing. */
-router.get('/', async (_, res) => {
-  const todos = await Todo.find({})
-  res.send(todos);
+/* GET all todos */
+router.get('/', async (req, res, next) => {
+  try {
+    const todos = await Todo.find({});
+    res.json(todos);
+  } catch (error) {
+    next(error);
+  }
 });
 
-/* POST todo to listing. */
-router.post('/', async (req, res) => {
-  const todo = await Todo.create({
-    text: req.body.text,
-    done: false
-  })
-  res.send(todo);
+/* POST a new todo */
+router.post('/', async (req, res, next) => {
+  try {
+    const todo = await Todo.create({
+      text: req.body.text,
+      done: false
+    });
+
+    res.status(201).json(todo);
+  } catch (error) {
+    next(error);
+  }
 });
 
 const singleRouter = express.Router();
 
+/* Find todo by ID */
 const findByIdMiddleware = async (req, res, next) => {
-  const { id } = req.params
-  req.todo = await Todo.findById(id)
-  if (!req.todo) return res.sendStatus(404)
+  try {
+    const todo = await Todo.findById(req.params.id);
 
-  next()
-}
+    if (!todo) {
+      return res.sendStatus(404);
+    }
 
-/* DELETE todo. */
-singleRouter.delete('/', async (req, res) => {
-  await req.todo.delete()  
-  res.sendStatus(200);
+    req.todo = todo;
+    next();
+  } catch (error) {
+    if (error.name === 'CastError') {
+      return res.sendStatus(400);
+    }
+
+    next(error);
+  }
+};
+
+/* DELETE todo */
+singleRouter.delete('/', async (req, res, next) => {
+  try {
+    await req.todo.deleteOne();
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
 });
 
-/* GET todo. */
-singleRouter.get('/', async (req, res) => {
-  res.sendStatus(405); // Implement this
+/* GET one todo */
+singleRouter.get('/', (req, res) => {
+  res.json(req.todo);
 });
 
-/* PUT todo. */
-singleRouter.put('/', async (req, res) => {
-  res.sendStatus(405); // Implement this
+/* PUT update todo */
+singleRouter.put('/', async (req, res, next) => {
+  try {
+    if (req.body.text !== undefined) {
+      req.todo.text = req.body.text;
+    }
+
+    if (req.body.done !== undefined) {
+      req.todo.done = req.body.done;
+    }
+
+    const updatedTodo = await req.todo.save();
+
+    res.json(updatedTodo);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.use('/:id', findByIdMiddleware, singleRouter)
-
+router.use('/:id', findByIdMiddleware, singleRouter);
 
 module.exports = router;
