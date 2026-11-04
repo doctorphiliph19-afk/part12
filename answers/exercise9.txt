@@ -1,0 +1,48 @@
+# Exercise 9 – Redis
+
+## Configuration
+
+Redis URL:
+`redis://localhost:6379`
+
+MongoDB URL:
+`mongodb://localhost:27017/todo-app`
+
+## Docker
+
+Started the Redis container using:
+
+```powershell
+docker compose up -d redis
+```
+
+## Environment variables
+
+```powershell
+$env:REDIS_URL = "redis://localhost:6379"
+$env:MONGO_URL = "mongodb://localhost:27017/todo-app"
+```
+
+## Start the backend
+
+```powershell
+npm run dev
+```
+
+## Verification
+
+Tested the Express API using:
+
+```powershell
+Invoke-RestMethod http://localhost:3000/ | Format-List
+```
+
+The API returned:
+
+```text
+MONGO_URL : mongodb://localhost:27017/todo-app
+REDIS_URL : redis://localhost:6379
+visits    : 2
+```
+
+**Result:** The Express backend starts successfully and returns the MongoDB and Redis configuration values.
