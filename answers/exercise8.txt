@@ -1,0 +1,103 @@
+Full Stack Open - Part 12
+Exercise 8: Mongo CLI
+
+1. Started MongoDB:
+
+```powershell
+docker start mongo
+```
+
+2. Checked the running container:
+
+```powershell
+docker ps
+```
+
+3. Entered the MongoDB container and opened MongoDB CLI:
+
+```powershell
+docker exec -it mongo mongosh
+```
+
+4. Listed databases:
+
+```javascript
+show dbs
+```
+
+5. Selected the database:
+
+```javascript
+use todo-app
+```
+
+6. Listed collections:
+
+```javascript
+show collections
+```
+
+Output:
+```text
+todos
+```
+
+7. Checked existing todos:
+
+```javascript
+db.todos.find({})
+```
+
+8. Checked the number of todos:
+
+```javascript
+db.todos.countDocuments({})
+```
+
+Output:
+```text
+0
+```
+
+9. Inserted the new todo using MongoDB CLI:
+
+```javascript
+db.todos.insertOne({
+  text: "Increase the number of tools in my tool belt",
+  done: false
+})
+```
+
+10. Verified the inserted todo in MongoDB:
+
+```javascript
+db.todos.find({})
+```
+
+Output:
+```javascript
+[
+  {
+    _id: ObjectId("6aeb2780b19d6cdbfe8ce5b0"),
+    text: "Increase the number of tools in my tool belt",
+    done: false
+  }
+]
+```
+
+11. Verified the same todo through the Express application:
+
+```powershell
+Invoke-RestMethod http://localhost:3000/todos | Format-List _id,text,done
+```
+
+Output:
+```text
+_id  : 6aeb2780b19d6cdbfe8ce5b0
+text : Increase the number of tools in my tool belt
+done : False
+```
+
+Conclusion:
+
+Successfully inserted a new todo directly through MongoDB CLI and verified that it was accessible through the Express application.
