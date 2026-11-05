@@ -1,0 +1,35 @@
+# Exercise 10: Get Set Ready!
+
+## Implementation
+
+Implemented a Redis-based counter to track the total number of todos added.
+
+### 1. Increment the counter
+
+Whenever a new todo is successfully created through the POST `/api/todos` endpoint, the Redis counter is incremented by one.
+
+```javascript
+const currentCount = Number(await get('added_todos')) || 0;
+await set('added_todos', String(currentCount + 1));
+```
+
+### 2. Statistics endpoint
+
+Created a GET `/statistics` endpoint that returns the total number of added todos.
+
+Example response:
+
+```json
+{
+  "added_todos": 1
+}
+```
+
+### 3. Testing
+
+- MongoDB connection tested successfully.
+- Redis connection tested successfully.
+- Successfully created a new todo.
+- Verified that the Redis counter increased from 0 to 1.
+
+**Result:** Exercise 10 completed successfully.
