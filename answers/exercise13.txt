@@ -1,0 +1,13 @@
+Exercise 13: Containerize the Todo frontend
+
+1. Created a Dockerfile using Node.js 20.
+2. Installed frontend dependencies using npm install.
+3. Set VITE_BACKEND_URL=http://localhost:3000.
+4. Built the production frontend using npm run build.
+5. Created .dockerignore to exclude node_modules and dist.
+6. Built the Docker image using docker build -t todo-frontend .
+7. Started the container using docker run -d --name todo-frontend -p 4173:4173 todo-frontend.
+8. Tested the application at http://localhost:4173/.
+9. Confirmed that existing todos load and new todos can be added successfully.
+
+Result: Exercise 13 completed successfully.
