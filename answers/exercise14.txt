@@ -1,0 +1,11 @@
+Exercise 14: Testing during the build process
+
+1. Extracted the Todo component from the TodoList component.
+2. Created unit tests for the Todo component using Vitest and React Testing Library.
+3. Tested todo rendering, completing a todo, and deleting a todo.
+4. Configured Vitest to use the jsdom environment.
+5. Added the test script: npm test.
+6. Updated the Dockerfile to run RUN npm test before RUN npm run build.
+7. Built the Docker image successfully using docker build -t todo-frontend .
+
+Result: All 3 tests passed, and the Docker image built successfully.
