@@ -1,0 +1,119 @@
+# Exercise 11: Redis CLI
+
+## 1. Open Redis CLI
+
+Command:
+
+```bash
+docker exec -it todo-backend-redis-1 redis-cli
+```
+
+## 2. Find the Redis key
+
+Command:
+
+```redis
+KEYS *
+```
+
+Output:
+
+```text
+1) "added_todos"
+```
+
+## 3. Read the counter
+
+Command:
+
+```redis
+GET added_todos
+```
+
+Output:
+
+```text
+"1"
+```
+
+## 4. Set the counter to 9001
+
+Command:
+
+```redis
+SET added_todos 9001
+```
+
+Output:
+
+```text
+OK
+```
+
+The `/statistics` endpoint returned:
+
+```json
+{
+  "added_todos": 9001
+}
+```
+
+## 5. Create a new todo
+
+Postman Cloud Agent could not connect to localhost, so I used PowerShell's `Invoke-RestMethod` to send the same POST request to the local backend.
+
+```powershell
+Invoke-RestMethod -Method POST -Uri http://localhost:3000/api/todos -ContentType "application/json" -Body '{"text":"Testing Exercise 11 Redis CLI"}'
+```
+
+The todo was created successfully.
+
+Redis counter:
+
+```redis
+GET added_todos
+```
+
+Output:
+
+```text
+"9002"
+```
+
+## 6. Delete the Redis key
+
+Command:
+
+```redis
+DEL added_todos
+```
+
+Output:
+
+```text
+(integer) 1
+```
+
+## 7. Test the counter after deletion
+
+Created another todo using PowerShell:
+
+```powershell
+Invoke-RestMethod -Method POST -Uri http://localhost:3000/api/todos -ContentType "application/json" -Body '{"text":"Testing Redis after deleting counter"}'
+```
+
+Checked the Redis counter:
+
+```redis
+GET added_todos
+```
+
+Output:
+
+```text
+"1"
+```
+
+## Conclusion
+
+Exercise 11 completed successfully. I verified that Redis can retrieve, update, and delete the `added_todos` key. I also confirmed that the application recreates the counter and starts counting from 1 when a new todo is added after the key has been deleted.
