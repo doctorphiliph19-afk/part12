@@ -1,0 +1,38 @@
+Exercise 12: Persisting data in Redis
+
+Initially, Redis data was not persisted. After running docker compose down and docker compose up, the added_todos counter returned (nil).
+
+To solve this, I added a named volume to docker-compose.dev.yml:
+
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+  volumes:
+    - redis_data:/data
+
+volumes:
+  mongo_data:
+  redis_data:
+
+I tested persistence by setting the Redis counter:
+
+SET added_todos 9001
+
+Then I saved the data:
+
+SAVE
+
+I stopped and recreated the containers using:
+
+docker compose -f docker-compose.dev.yml down
+docker compose -f docker-compose.dev.yml up -d
+
+Finally, I checked the counter:
+
+GET added_todos
+
+Result: "9001"
+
+Conclusion:
+Redis data successfully survived container removal and recreation because it was stored in a named Docker volume.
