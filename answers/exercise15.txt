@@ -1,0 +1,22 @@
+Exercise 15: Set up a frontend development environment
+
+Created docker-compose.dev.yml in the todo-frontend directory.
+
+The Docker Compose configuration:
+
+1. Builds the frontend Docker image.
+2. Maps port 5173 on the host to port 5173 in the container.
+3. Mounts the frontend source directory into /usr/src/app.
+4. Uses an anonymous volume for /usr/src/app/node_modules.
+5. Sets VITE_BACKEND_URL to http://localhost:3000.
+6. Starts Vite in development mode using:
+   npm run dev -- --host 0.0.0.0
+
+Testing:
+
+- Frontend starts successfully inside Docker.
+- Existing todos load from the backend.
+- New todos can be added.
+- Hot Module Replacement works automatically when source files change.
+
+Exercise 15 completed successfully.
