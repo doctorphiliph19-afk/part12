@@ -1,0 +1,11 @@
+# Exercise 16: Development container for todo-backend
+
+The todo-backend application runs inside a Docker development container using `dev.Dockerfile`.
+
+The development container uses Nodemon to run the backend with automatic restart support when source files change.
+
+Docker Compose uses a bind mount (`.:/usr/src/app`) to make local source-code changes available inside the container. An anonymous volume (`/usr/src/app/node_modules`) keeps the container's installed dependencies separate from the host directory.
+
+The backend connects to MongoDB using `mongodb://mongo:27017/todo-app` and Redis using `redis://redis:6379`. These URLs use the Docker Compose service names, allowing the containers to communicate through the Compose network.
+
+The frontend development container runs Vite on port 5173, while the backend runs on port 3000. I verified that the frontend loads the todo list and successfully adds new todos through the backend API.

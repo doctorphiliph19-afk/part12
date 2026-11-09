@@ -1,4 +1,21 @@
 services:
+  server:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/todo-app
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+    command: npm run dev
+
   mongo:
     image: mongodb/mongodb-community-server:7.0.45-ubi8-slim
     ports:
