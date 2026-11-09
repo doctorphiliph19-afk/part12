@@ -1,0 +1,10 @@
+
+Exercise 18: Configure Nginx in front of todo-backend
+
+- Used the existing backend development service in docker-compose.dev.yml.
+- Connected the backend to MongoDB and Redis.
+- Configured Nginx to proxy requests beginning with /api/ to the backend.
+- Used proxy_pass http://backend:3000/ with a trailing slash to remove the /api/ prefix.
+- Verified that http://localhost:8080/api/todos returns the todos in JSON format.
+
+Result: Exercise 18 completed successfully.
