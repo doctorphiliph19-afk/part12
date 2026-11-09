@@ -1,0 +1,45 @@
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - frontend
+      - backend
+
+  frontend:
+    image: todo-frontend-dev
+    volumes:
+      - ./todo-frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    image: todo-backend-dev
+    volumes:
+      - ./todo-backend:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/todo-app
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongodb/mongodb-community-server:7.0.45-ubi8-slim
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mongo_data:
+  redis_data:
