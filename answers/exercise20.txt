@@ -1,0 +1,22 @@
+Exercise 20: Containerized production environment
+
+Created a production Docker Compose configuration with five services:
+
+- Nginx: reverse proxy, exposed on port 8080.
+- Frontend: production React application, image todo-front.
+- Backend: production Node.js application, image todo-backend.
+- MongoDB: persistent database storage.
+- Redis: persistent Redis storage.
+
+Production configuration:
+- Created docker-compose.yml.
+- Created nginx.conf.
+- Used the production Dockerfiles.
+- Configured VITE_BACKEND_URL=/api.
+- Only Nginx exposes a host port.
+- Built and started all five containers successfully.
+
+Verified:
+- Application accessible at http://localhost:8080.
+- Adding Todos works.
+- Todos remain after refreshing.
