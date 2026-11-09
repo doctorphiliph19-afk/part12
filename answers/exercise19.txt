@@ -1,0 +1,14 @@
+Exercise 19: Connecting the frontend and backend
+
+The frontend and backend communicate through Nginx.
+
+- Nginx is exposed on port 8080.
+- Frontend requests use VITE_BACKEND_URL=/api.
+- Axios uses import.meta.env.VITE_BACKEND_URL.
+- Nginx forwards /api/ requests to the backend.
+- Frontend and backend ports are not exposed directly.
+- Adding todos works successfully.
+- Todos remain saved after refreshing the application.
+- Direct access to localhost:3000 and localhost:5173 is refused.
+
+The application is accessed through http://localhost:8080.
