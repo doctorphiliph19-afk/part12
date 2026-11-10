@@ -1,0 +1,17 @@
+{
+  "name": "Kakuma Creative Zone",
+  "short_name": "Kakuma Zone",
+  "description": "A creative directory of musicians, dancers, poets, comedians, photographers and cultural groups from Kakuma Refugee Camp.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0e0a1f",
+  "theme_color": "#7c3aed",
+  "categories": ["social", "music", "lifestyle"],
+  "lang": "en",
+  "icons": [
+    { "src": "Copilot_20260612_155234.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "Copilot_20260612_155234.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

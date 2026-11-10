@@ -1,0 +1,32 @@
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    container_name: kcz-frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx.dev.conf:/etc/nginx/conf.d/default.conf:ro
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    container_name: kcz-backend
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      JWT_SECRET: dev-only-secret-change-me
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+      - ./backend/data:/usr/src/app/data
+      - ./backend/uploads:/usr/src/app/uploads
+    command: npm run dev

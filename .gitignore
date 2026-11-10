@@ -10,3 +10,5 @@ todo-app/playwright-report/
 todo-app/playwright/.cache/
 todo-tests/playwright-report/
 todo-tests/test-results/
+# Kakuma Creative Zone local database records
+my-app/backend/data/*.json
