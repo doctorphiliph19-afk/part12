@@ -78,3 +78,39 @@ The application data and uploads are stored in local project folders through Doc
 **Khim Philiph Chuol**
 
 GitHub: [doctorphiliph19-afk](https://github.com/doctorphiliph19-afk)
+
+## Exercise 23: Containerized Production Environment
+
+Created a production-ready Docker environment for Kakuma Creative Zone.
+
+### Architecture
+- **Frontend:** Nginx serving static website files.
+- **Backend:** Node.js 20 running Express in production mode.
+- **Reverse proxy:** Nginx forwards `/api/` and `/uploads/` requests to the backend.
+- **Persistent storage:** Docker named volumes for application data and uploaded files.
+- **Security:** `.dockerignore` excludes local data, uploads, dependencies, and environment files from image builds.
+
+### Run the production environment
+
+From the repository root:
+
+```bash
+docker compose -f my-app/docker-compose.yml up --build -d
+```
+
+### Access the application
+
+- Website: http://localhost:8080
+- API health check: http://localhost:8080/api/health
+
+### Stop the production environment
+
+```bash
+docker compose -f my-app/docker-compose.yml down
+```
+
+Named volumes preserve application data and uploads when containers are stopped or removed.
+
+### Related project
+
+[Kakuma Creative Zone](https://github.com/doctorphiliph19-afk/kakuma-Creative-zone)

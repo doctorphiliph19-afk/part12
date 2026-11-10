@@ -1,0 +1,30 @@
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:-local-development-secret-change-before-deployment}
+    volumes:
+      - kcz_data:/usr/src/app/data
+      - kcz_uploads:/usr/src/app/uploads
+    expose:
+      - "3000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  kcz_data:
+  kcz_uploads:

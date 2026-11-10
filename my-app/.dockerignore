@@ -1,0 +1,6 @@
+backend/data/
+backend/uploads/
+backend/node_modules/
+frontend/node_modules/
+**/.env
+.git/
