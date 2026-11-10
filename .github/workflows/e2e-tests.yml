@@ -2,8 +2,7 @@ name: E2E Tests
 
 on:
   push:
-    branches: [ xmain, xmaster ]
-
+    branches: [ main, master ]
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest

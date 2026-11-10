@@ -76,8 +76,8 @@ test.describe('Backend API Tests', () => {
       data: newTodo
     });
     
-    expect(response.status()).toBe(200);
-    
+    expect(response.status()).toBe(201);
+
     const createdTodo = await response.json();
     expect(createdTodo.text).toBe(newTodo.text);
     expect(createdTodo).toHaveProperty('_id');
@@ -111,7 +111,6 @@ test.describe('Backend API Tests', () => {
     const updateResponse = await request.put(`/api/todos/${createdTodo._id}`, {
       data: { text: 'Updated todo text', done: true }
     });
-    
     expect(updateResponse.status()).toBe(200);
     
     const updatedTodo = await updateResponse.json();
